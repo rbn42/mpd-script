@@ -21,3 +21,4 @@ print(events)
 print(client.status())
 client.close()                     # send the close command
 client.disconnect()                # disconnect from the server
+#client.delete((1,))     # delete all songs, but the first.
