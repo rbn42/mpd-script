@@ -35,14 +35,23 @@ def main(client):
             else:
                 pass
 
+    client.next()
+    client.play()
+
     # 添加完毕后再消除.
+    # 逐个删除操作消耗很大,相比之下添加几乎一瞬间就完成了.不过似乎不存在批量删除的api
+    # 不过这点消耗在容忍范围内
+    # 所以播放可以提前到前面.小概率事件播放中的曲目可能会被下面代码删除掉.完善的做法是后面加一个播放中检查.
     l = client.playlistinfo()
     from favfilter import dislike
     for item in l:
         if dislike(item):
             client.deleteid(item['id'])
 
-    client.next()
+    # 检查下是否播放停了.
+    song = client.currentsong()
+    if None == song:
+        client.next()
     client.play()
 
 
