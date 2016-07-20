@@ -1,0 +1,3 @@
+[submodule "mpd"]
+	path = mpd
+	url = https://github.com/rbn42/python-mpd2
