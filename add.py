@@ -3,10 +3,13 @@
 import util
 import database
 import sys
+import logger
+import logging
 
 
 def main(client):
     path = sys.argv[1]
+    logging.info('add file:%s' % path)
     l = client.find('filename', path)
     if len(l) > 0:
         item = l[0]
