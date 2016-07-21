@@ -1,5 +1,12 @@
-# 主要入口
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+import logging
+
+
 def add2(item, mpc):
+    """ 
+    主要入口
+    """
     items = listall2(item, mpc)
     items = _filter(items, mpc)
     return items
@@ -48,5 +55,6 @@ def listall2(item, mpc, result=None):
         for child in children:
             listall2(child, mpc, result)
     else:
+        logging.debug('add single item:%s', item)
         result.append(item)
     return result

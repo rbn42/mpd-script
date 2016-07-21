@@ -1,5 +1,14 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+"""
+Hello.
+
+Usage:
+  main.py [--type=<type>] <path>
+
+Options:
+  -h --help     Show this screen.
+"""
 import util
 import database
 import sys
@@ -8,13 +17,20 @@ import logging
 
 
 def main(client):
-    path = sys.argv[1]
-    logging.info('add file:%s' % path)
-    l = client.find('filename', path)
-    if len(l) > 0:
-        item = l[0]
+    from docopt import docopt
+    arguments = docopt(__doc__)
+    path = arguments['<path>']
+    type_ = arguments['--type']
+    logging.info('add %s:%s' % (type_, path))
+
+    if type_ in ('directory', 'playlist'):
+        item = {type_: path}
     else:
-        item = {'directory': path}
+        l = client.find('filename', path)
+        if len(l) > 0:
+            item = l[0]
+        else:
+            item = {'directory': path}
 
     _list = database.add2(item, client)
     if len(_list) < 0:
