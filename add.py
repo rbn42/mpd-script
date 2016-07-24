@@ -4,7 +4,7 @@
 Hello.
 
 Usage:
-  main.py [--type=<type>] <path>
+  main.py [--type=<type>] [--debug] <path>
 
 Options:
   -h --help     Show this screen.
@@ -21,6 +21,9 @@ def main(client):
     arguments = docopt(__doc__)
     path = arguments['<path>']
     type_ = arguments['--type']
+    if arguments['--debug']:
+        logfile = '/tmp/mpdscript.log'  # LogFile.strip()
+        logger.init(logfile)
     logging.info('add %s:%s' % (type_, path))
 
     if type_ in ('directory', 'playlist'):
