@@ -45,7 +45,7 @@ def main(client):
 
     因此,只能第一次add全部加入,然后再读取playlist,删掉dislike的部分.
     """
-    client.clear()
+    # client.clear()
     for item in _list:
         if 'file' in item:
             client.add(item['file'])
