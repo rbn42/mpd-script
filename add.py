@@ -58,7 +58,8 @@ def main(client):
             else:
                 pass
 
-    client.next()
+    if arguments['--clear']:
+        client.next()
     client.play()
 
     # 添加完毕后再消除.
