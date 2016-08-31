@@ -7,7 +7,8 @@ then
     echo locked
 else
     touch $LOCKFILE
-    python3 $(dirname "$0")/add.py "$@" --clear
+    python3 $(dirname "$0")/add.py "$@"
+    #python3 $(dirname "$0")/add.py "$@" --clear
     rm $LOCKFILE
 fi
 
