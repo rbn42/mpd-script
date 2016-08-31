@@ -1,14 +1,20 @@
 #!/bin/bash
-export PYTHONPATH=$(dirname "$0")/mpd
+LOCKFILE="/dev/shm/mpd-script-lock"
 
-export LOCKFILE="/dev/shm/mpd-script-lock"
-if [ -f "$LOCKFILE" ]
+ROOT="$0"
+ROOT=$(realpath "$ROOT")
+ROOT=$(dirname "$ROOT")
+
+export PYTHONPATH="$ROOT/mpd"
+
+LOCK=$(python "$ROOT/lock.py" "$LOCKFILE" 60)
+if [ "locked" == "$LOCK" ]
 then
-    echo locked
-else
+#    echo locked
     touch $LOCKFILE
     python3 $(dirname "$0")/add.py "$@"
     #python3 $(dirname "$0")/add.py "$@" --clear
     rm $LOCKFILE
+#else
+#    echo failed
 fi
-
