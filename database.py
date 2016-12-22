@@ -22,7 +22,13 @@ def _filter(items, mpc):
                 occupied += mpc.listplaylist(item['playlist'])
                 playlists.append(item)
             except:
-                a = 1 / 0
+                # tak文件会归类为playlist,但是似乎无法list,所以应该算作file处理?
+                if item['playlist'].endswith('.tak'):
+                    item['file'] = item['playlist']
+                else:
+                    open('/dev/shm/123', 'w').write(str(item))
+                    print(item)
+                    a = 1 / 0
     occupied = set(occupied)
     non_occupied = []
     for item in items:
