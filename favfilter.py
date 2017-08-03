@@ -12,8 +12,7 @@ def parse2str(item):
     path = item['file']
     path = '/'.join(path.split('/')[-2:])
 
-    keys = [k for k in item if k in KEYS]
-    keys.sort()
+    keys = sorted([k for k in item if k in KEYS])
     values = [path] + [item[k] for k in keys]
     return str(values)
     _str = ','.join(values)

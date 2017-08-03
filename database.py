@@ -4,7 +4,7 @@ import logging
 
 
 def add2(item, mpc):
-    """ 
+    """
     主要入口
     """
     items = listall2(item, mpc)
@@ -21,7 +21,7 @@ def _filter(items, mpc):
                 # result+=mpc.listplaylistinfo(item['playlist'])
                 occupied += mpc.listplaylist(item['playlist'])
                 playlists.append(item)
-            except:
+            except BaseException:
                 # tak文件会归类为playlist,但是似乎无法list,所以应该算作file处理?
                 if item['playlist'].endswith('.tak'):
                     item['file'] = item['playlist']
@@ -54,7 +54,7 @@ def listall2(item, mpc, result=None):
             if uri == '..':
                 return []
             children = mpc.lsinfo(uri)
-        except:
+        except BaseException:
             # 可以强制加入utf8编码错误的文件，但是加入后，ncmpy的listview会出错，无法显示。
             children = mpc.listall(item['directory'])
             children = [item for item in children if 'file' in item]
