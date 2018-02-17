@@ -70,7 +70,11 @@ def main(client):
     from favfilter import dislike
     for item in l:
         if dislike(item):
-            client.deleteid(item['id'])
+            #会有删除失败的情形
+            try:
+                client.deleteid(item['id'])
+            except:
+                pass
 
     # 检查下是否播放停了.
     song = client.currentsong()
